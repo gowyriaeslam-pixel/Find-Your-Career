@@ -1,0 +1,38 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your Career Playground</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#f4f3ef;color:#171717}.wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px}.card{width:min(900px,100%);min-height:600px;background:#fff;border-radius:28px;padding:48px;box-shadow:0 15px 45px #0002;box-sizing:border-box}h1{font-size:clamp(38px,6vw,64px);margin:10px 0}h2{font-size:34px}p{font-size:19px;line-height:1.5;color:#555}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px}button{border:0;border-radius:16px;padding:22px;font-size:18px;font-weight:700;cursor:pointer;background:#eee}button:hover{transform:translateY(-2px)}.primary{background:#171717;color:#fff;margin-top:24px}.back{background:transparent;padding:8px}.tag{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}.result{background:#eee;padding:20px;border-radius:16px;margin-top:20px;line-height:1.5}.bar{height:7px;background:#171717;border-radius:8px;margin:22px 0 30px}.muted{color:#777;font-size:13px}@media(max-width:650px){.card{padding:28px}.grid{grid-template-columns:1fr}}
+</style></head><body><div class="wrap"><main class="card" id="app"></main></div>
+<script>
+const fields={
+Marketing:[
+["A new café is opening on campus. How would you attract students?",["Post the menu once","Create a campaign around students' interests","Only rely on word of mouth"],"Marketing starts with understanding the audience and creating a message that makes them care."],
+["Students are not engaging with your campaign. What do you do first?",["Post it more often","Understand why the audience is not responding","Change the logo"],"Good marketing starts with understanding the audience before changing the solution."]
+],
+Banking:[
+["You have two financial options. What should you consider?",["Only which looks better","Risk, return and the situation","What everyone else chose"],"Financial decisions require looking at risk, return and context."],
+["A customer is unsure about two options. What do you do first?",["Recommend one immediately","Understand the customer's needs and situation","Choose the more complicated option"],"A strong decision starts by understanding the client's needs and information."]
+],
+Sales:[
+["A student is interested but unsure about an opportunity. What do you do first?",["Keep talking until they agree","Ask questions to understand their needs","Immediately offer a discount"],"Good sales starts with understanding needs and finding the right solution, not simply pushing an offer."],
+["A customer says, “I’m not interested.” What is the best next step?",["Keep repeating the same pitch","Listen and understand the reason behind the hesitation","End the conversation immediately"],"Strong sales is about listening, understanding objections and building a relevant conversation."]
+],
+Entrepreneurship:[
+["Students have a problem on campus. What should you do first?",["Build a product immediately","Understand the problem and who has it","Choose a business name"],"Entrepreneurship begins with identifying a real problem and understanding the people who experience it."],
+["You have an idea. What's a smart next step?",["Test it with potential users","Spend the budget immediately","Keep the idea secret"],"Testing an idea early helps you learn before investing heavily."]
+],
+TOT:[
+["You have one minute to explain an idea. What should you focus on?",["Use complicated words","Make the idea clear and easy to understand","Speak as quickly as possible"],"Training is about making information clear, engaging and understandable."],
+["Your audience looks confused. What should you do?",["Continue exactly as planned","Change your explanation and check understanding","End immediately"],"A good trainer adapts to the audience and checks understanding."]
+]};
+let field="",i=0;
+function home(){app.innerHTML=`<div class="tag">ALPHA AC Recruitment Campaign</div><h1>Your Career Playground</h1><p><b>Don’t Just Choose a Career. Explore It.</b></p><p>Choose a field and try a quick interactive challenge.</p><div class="grid">${Object.keys(fields).map(x=>`<button onclick="start('${x}')">${x}</button>`).join("")}</div><p class="muted">Choose → Try → Discover → Apply</p>`}
+function start(x){field=x;i=0;question()}
+function question(){let q=fields[field][i];app.innerHTML=`<button class="back" onclick="home()">← Back</button><div class="tag">${field} Exploration</div><div class="bar"></div><p class="tag">Mini Challenge ${i+1} of ${fields[field].length}</p><h2>${q[0]}</h2><div class="grid">${q[1].map((o,n)=>`<button onclick="answer(${n})">${o}</button>`).join("")}</div>`}
+function answer(n){let q=fields[field][i];app.innerHTML=`<div class="tag">${field} Exploration</div><h2>${n===1?"Nice choice!":"Interesting choice!"}</h2><div class="result">${q[2]}</div><button class="primary" onclick="next()">Continue Exploring →</button>`}
+function next(){i++;if(i<fields[field].length)question();else done()}
+function done(){app.innerHTML=`<div class="tag">${field} Exploration Complete</div><h1>Imagine what you could discover at ALPHA.</h1><p>You just explored ${field} through a short real-world style challenge.</p><div class="result"><b>You just explored.</b> Now imagine what you could discover through ALPHA AC.</div><button class="primary" onclick="apply()">Ready to explore more? →</button><button class="back" onclick="home()">Explore another field</button>`}
+function apply(){app.innerHTML=`<div class="tag">Your Career Playground</div><h1>Ready to explore more?</h1><p>Take the next step and apply to ALPHA AC.</p><button class="primary" onclick="alert('Demo only — connect this button to the real ALPHA Application Form.')">Apply to ALPHA AC →</button><button class="back" onclick="home()">← Start again</button>`}
+home();
+</script></body></html>
